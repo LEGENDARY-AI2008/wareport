@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>☠️ LEGENDARY BAN — by LEGEND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Rajdhani:wght@700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+<!-- LANDING / AUTH -->
+<div id="auth-page" class="page active">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="scanlines"></div>
+    <div class="hero-inner">
+      <div class="skull-row">
+        <span class="skull-big">💀</span>
+        <span class="skull-sm">☠️</span>
+        <span class="skull-big">💀</span>
+      </div>
+      <h1 class="hero-title glitch" data-text="LEGENDARY BAN">LEGENDARY BAN</h1>
+      <p class="hero-sub">The most powerful WhatsApp report network on the internet</p>
+      <div class="hero-badges">
+        <span class="badge-pill">☠️ MASS REPORT</span>
+        <span class="badge-pill">🔥 INSTANT BAN</span>
+        <span class="badge-pill">💀 SILENT SESSIONS</span>
+      </div>
+      <p class="dev-credit">Developed by <strong>LEGEND</strong> — <span class="lg-brand">LËGĒNDÃRY Ł𝗮𝗯𝘀™ STUDIO</span></p>
+    </div>
+  </header>
+
+  <!-- AUTH PANEL -->
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <div class="auth-skull">☠️</div>
+      <div class="auth-tabs">
+        <button class="tab active" onclick="switchTab('login')">LOGIN</button>
+        <button class="tab" onclick="switchTab('register')">REGISTER</button>
+      </div>
+
+      <div id="login-form" class="form-block">
+        <div class="field-wrap">
+          <i class="fa-solid fa-phone field-icon"></i>
+          <input type="text" id="login-phone" placeholder="Phone Number (e.g. 2348012345678)"/>
+        </div>
+        <div class="field-wrap">
+          <i class="fa-solid fa-lock field-icon"></i>
+          <input type="password" id="login-pass" placeholder="Password"/>
+        </div>
+        <button class="btn-fire" onclick="login()">
+          <span>ENTER THE NETWORK</span> ☠️
+        </button>
+        <p id="login-error" class="err"></p>
+      </div>
+
+      <div id="register-form" class="form-block hidden">
+        <div class="field-wrap">
+          <i class="fa-solid fa-phone field-icon"></i>
+          <input type="text" id="reg-phone" placeholder="Your Phone Number"/>
+        </div>
+        <div class="field-wrap">
+          <i class="fa-solid fa-lock field-icon"></i>
+          <input type="password" id="reg-pass" placeholder="Set Password"/>
+        </div>
+        <button class="btn-fire" onclick="register()">
+          <span>JOIN THE NETWORK</span> 💀
+        </button>
+        <p id="reg-error" class="err"></p>
+        <div id="reg-success" class="success-popup hidden">
+          <div class="sp-skull">🎉</div>
+          <p>ACCOUNT CREATED</p>
+          <p class="uid-label">YOUR UNIQUE ID</p>
+          <div class="uid-display" id="user-unique-id"></div>
+          <p class="uid-note">Save this — it identifies you on the network</p>
+        </div>
+      </div>
+
+      <a href="/admin.html" class="admin-portal-link">Admin Portal ☠️</a>
+    </div>
+  </div>
+
+  <!-- FEATURES STRIP -->
+  <section class="features">
+    <div class="feature">
+      <span class="feat-icon">💀</span>
+      <h3>SILENT SESSIONS</h3>
+      <p>Paired accounts sit invisible. No messages. No trace. The victim never knows.</p>
+    </div>
+    <div class="feature">
+      <span class="feat-icon">☠️</span>
+      <h3>MASS FLOOD</h3>
+      <p>Every paired session fires simultaneously. One click. Maximum impact.</p>
+    </div>
+    <div class="feature">
+      <span class="feat-icon">🔥</span>
+      <h3>WEB CONTROLLED</h3>
+      <p>Everything runs from your dashboard. No WhatsApp commands. No exposure.</p>
+    </div>
+    <div class="feature">
+      <span class="feat-icon">⚡</span>
+      <h3>REAL-TIME STATUS</h3>
+      <p>Live session monitoring. Know exactly what's active before you fire.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span>☠️</span>
+    <span>LEGENDARY BAN — by LEGEND</span>
+    <span>LËGĒNDÃRY Ł𝗮𝗯𝘀™ STUDIO</span>
+    <span>☠️</span>
+  </footer>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard-page" class="page hidden">
+  <nav class="dash-nav">
+    <div class="nav-brand">
+      <span class="nb-skull">☠️</span>
+      <span class="nb-text">LEGENDARY BAN</span>
+    </div>
+    <div class="nav-right">
+      <div class="uid-chip" id="nav-uid"></div>
+      <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> LOGOUT</button>
+    </div>
+  </nav>
+
+  <div class="dash-content">
+
+    <!-- REPORT PANEL — HERO OF DASHBOARD -->
+    <div class="report-hero">
+      <div class="rh-skull">☠️</div>
+      <h2 class="rh-title">ENTER VICTIM NUMBER</h2>
+      <p class="rh-sub">Type the WhatsApp number and unleash the network</p>
+      <div class="rh-input-wrap">
+        <input type="text" id="target-number" class="rh-input" placeholder="e.g. 2348012345678"/>
+        <button class="btn-ban" id="report-btn" onclick="fireReport()">
+          💀 BAN THIS NUMBER
+        </button>
+      </div>
+      <div id="report-result" class="report-result hidden"></div>
+    </div>
+
+    <!-- SESSION STATUS -->
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="dc-header">
+          <h3>☠️ PAIRED ACCOUNTS</h3>
+          <button class="btn-add-session" onclick="showPairModal()">
+            <i class="fa-solid fa-plus"></i> PAIR ACCOUNT
+          </button>
+        </div>
+        <div id="sessions-list" class="sessions-list">
+          <div class="empty-sessions">
+            <span>💀</span>
+            <p>No accounts paired yet</p>
+            <p class="es-sub">Pair at least 2 accounts to activate the network</p>
+          </div>
+        </div>
+        <div id="sessions-warning" class="sess-warning hidden">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span id="sessions-warning-text"></span>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="dash-card stats-panel">
+        <h3 class="sp-title">NETWORK STATS</h3>
+        <div class="stats-grid">
+          <div class="stat-block">
+            <span id="stat-active" class="stat-num">0</span>
+            <label>Live Sessions</label>
+          </div>
+          <div class="stat-block">
+            <span id="stat-total" class="stat-num">0</span>
+            <label>Total Paired</label>
+          </div>
+          <div class="stat-block">
+            <span id="stat-reports" class="stat-num">0</span>
+            <label>Bans Fired</label>
+          </div>
+        </div>
+        <div class="network-pulse">
+          <span class="pulse-dot"></span>
+          <span class="pulse-label">NETWORK ONLINE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW TO USE -->
+    <div class="how-to-card">
+      <h3>⚡ HOW TO USE</h3>
+      <div class="steps">
+        <div class="step"><span class="step-n">1</span><p>Pair at least <strong>2 WhatsApp accounts</strong> using the button above</p></div>
+        <div class="step"><span class="step-n">2</span><p>Enter the <strong>victim's number</strong> in the field above</p></div>
+        <div class="step"><span class="step-n">3</span><p>Hit <strong>BAN THIS NUMBER</strong> — all sessions fire simultaneously</p></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAIR MODAL -->
+<div id="pair-modal" class="modal-wrap hidden">
+  <div class="modal-box">
+    <button class="modal-x" onclick="closePairModal()">✕</button>
+    <div class="modal-skull">☠️</div>
+    <h3>PAIR A WHATSAPP ACCOUNT</h3>
+
+    <div id="pair-step-1">
+      <p class="modal-info">Enter the WhatsApp number to pair. Your account will sit <strong>silent and invisible</strong> — the owner won't notice a thing.</p>
+      <input type="text" id="pair-phone" placeholder="e.g. 2348012345678"/>
+      <button class="btn-fire" onclick="requestPairing()">GET PAIRING CODE ⚡</button>
+      <p id="pair-error" class="err"></p>
+    </div>
+
+    <div id="pair-step-2" class="hidden">
+      <p class="modal-info">Open WhatsApp → <strong>Settings → Linked Devices → Link a Device → Link with phone number</strong></p>
+      <p class="modal-info">Enter this code:</p>
+      <div class="pair-code-box" id="pairing-code"></div>
+      <div class="pair-waiting">
+        <i class="fa-solid fa-spinner fa-spin"></i> Waiting for device to connect...
+      </div>
+    </div>
+
+    <div id="pair-step-3" class="hidden">
+      <div class="pair-success-icon">✅</div>
+      <p class="pair-success-text">Account added to the network!</p>
+    </div>
+  </div>
+  <div class="modal-bg" onclick="closePairModal()"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>☠️ LEGENDARY BAN — ADMIN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Rajdhani:wght@700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+<div id="admin-login-page" class="page active">
+  <header class="hero" style="min-height:40vh;padding:40px 20px;">
+    <div class="scanlines"></div>
+    <div class="hero-inner">
+      <div class="skull-row"><span class="skull-big">☠️</span></div>
+      <h1 class="hero-title" style="font-size:clamp(2rem,8vw,5rem);">ADMIN PORTAL</h1>
+      <p class="hero-sub">LEGENDARY BAN CONTROL CENTER</p>
+    </div>
+  </header>
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <div class="auth-skull">🛡️</div>
+      <div class="form-block">
+        <div class="field-wrap">
+          <i class="fa-solid fa-lock field-icon"></i>
+          <input type="password" id="admin-pass" placeholder="Admin Password"/>
+        </div>
+        <button class="btn-fire" onclick="adminLogin()">ENTER ADMIN ZONE ☠️</button>
+        <p id="admin-login-error" class="err"></p>
+      </div>
+      <a href="/" class="admin-portal-link">← Back to User Panel</a>
+    </div>
+  </div>
+</div>
+
+<div id="admin-dashboard-page" class="page hidden">
+  <nav class="dash-nav admin-nav">
+    <div class="nav-brand">
+      <span class="nb-skull">🛡️</span>
+      <span class="nb-text" style="color:#f6ad55;">ADMIN CONTROL</span>
+    </div>
+    <div class="nav-right">
+      <span class="uid-chip" style="background:rgba(246,173,85,0.15);color:#f6ad55;border-color:#f6ad55;">ADMIN</span>
+      <button class="btn-logout" onclick="adminLogout()"><i class="fa-solid fa-right-from-bracket"></i> LOGOUT</button>
+    </div>
+  </nav>
+
+  <div class="dash-content">
+
+    <!-- STATS -->
+    <div class="admin-stats-banner">
+      <div class="asb-item">
+        <span id="a-total-users">0</span>
+        <label>Total Users</label>
+      </div>
+      <div class="asb-item">
+        <span id="a-active-sessions">0</span>
+        <label>Active Sessions</label>
+      </div>
+      <div class="asb-item">
+        <span id="a-total-sessions">0</span>
+        <label>Total Sessions</label>
+      </div>
+      <div class="asb-item">
+        <span id="a-total-reports">0</span>
+        <label>Bans Fired</label>
+      </div>
+    </div>
+
+    <!-- ADMIN REPORT -->
+    <div class="report-hero" style="border-color:#f6ad55;">
+      <div class="rh-skull">⚡</div>
+      <h2 class="rh-title" style="color:#f6ad55;">ADMIN FIRE — ALL SESSIONS</h2>
+      <p class="rh-sub">Uses every active session across all users simultaneously</p>
+      <div class="rh-input-wrap">
+        <input type="text" id="admin-target" class="rh-input" placeholder="Target number (e.g. 2348012345678)"/>
+        <button class="btn-ban" style="background:linear-gradient(135deg,#f6ad55,#ed8936);" onclick="adminFireReport()">
+          ⚡ FIRE FROM ALL SESSIONS
+        </button>
+      </div>
+      <div id="admin-report-result" class="report-result hidden"></div>
+    </div>
+
+    <!-- USERS TABLE -->
+    <div class="admin-table-card">
+      <div class="atc-header">
+        <h3>☠️ ALL USERS</h3>
+        <button class="btn-refresh" onclick="loadUsers()"><i class="fa-solid fa-rotate"></i> REFRESH</button>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>UNIQUE ID</th><th>PHONE</th><th>SESSIONS</th><th>ACTIVE</th><th>JOINED</th><th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- REPORT LOGS -->
+    <div class="admin-table-card">
+      <div class="atc-header">
+        <h3>🔥 BAN LOGS</h3>
+        <button class="btn-refresh" onclick="loadLogs()"><i class="fa-solid fa-rotate"></i> REFRESH</button>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>TARGET</th><th>FIRED BY</th><th>SESSIONS</th><th>SUCCESS</th><th>TIME</th>
+            </tr>
+          </thead>
+          <tbody id="logs-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>
