@@ -97,18 +97,20 @@ async function createPairingSession(sessionId, phoneNumber) {
 
   sock.ev.on('creds.update', saveCreds);
 
-  // wait for socket to be ready then request pairing code
-  await new Promise((resolve, reject) => {
+  // wait for socket to reach 'connecting' then request pairing code
+  const code = await new Promise((resolve, reject) => {
     const timeout = setTimeout(() => reject(new Error('Pairing timeout')), 30000);
+    let codeSent = false;
 
     sock.ev.on('connection.update', async (update) => {
-      if (update.qr !== undefined || update.connection === 'connecting') {
+      // Request pairing code on 'connecting' — only once, before QR is generated
+      if (update.connection === 'connecting' && !codeSent) {
+        codeSent = true;
         try {
-          // small delay then request pairing code
-          await new Promise(r => setTimeout(r, 2000));
-          const code = await sock.requestPairingCode(phoneNumber.replace(/\D/g, ''));
+          await new Promise(r => setTimeout(r, 1500));
+          const pairingCode = await sock.requestPairingCode(phoneNumber.replace(/\D/g, ''));
           clearTimeout(timeout);
-          resolve(code);
+          resolve(pairingCode);
         } catch (e) {
           clearTimeout(timeout);
           reject(e);
@@ -124,8 +126,8 @@ async function createPairingSession(sessionId, phoneNumber) {
         sock.ev.on('connection.update', (u) => {
           const { connection, lastDisconnect } = u;
           if (connection === 'close') {
-            const code = lastDisconnect?.error?.output?.statusCode;
-            const loggedOut = code === DisconnectReason.loggedOut;
+            const closeCode = lastDisconnect?.error?.output?.statusCode;
+            const loggedOut = closeCode === DisconnectReason.loggedOut;
             db.prepare(`UPDATE sessions SET status=? WHERE session_id=?`)
               .run(loggedOut ? 'logged_out' : 'inactive', sessionId);
             emitStatusUpdate(sessionId, loggedOut ? 'logged_out' : 'inactive');
@@ -135,12 +137,14 @@ async function createPairingSession(sessionId, phoneNumber) {
         });
       }
 
-      if (update.connection === 'close' && !activeSockets.has(sessionId)) {
+      if (update.connection === 'close' && !activeSockets.has(sessionId) && !codeSent) {
         clearTimeout(timeout);
         reject(new Error('Connection closed before pairing'));
       }
     });
   });
+
+  return code;
 }
 
 async function fireReport(targetNumber) {
