@@ -147,6 +147,8 @@ async function createPairingSession(sessionId, phoneNumber) {
   return code;
 }
 
+const delay = (ms) => new Promise(r => setTimeout(r, ms));
+
 async function fireReport(targetNumber) {
   const target = targetNumber.replace(/\D/g, '') + '@s.whatsapp.net';
   const allSessions = db.prepare(`SELECT session_id FROM sessions WHERE status='active'`).all();
@@ -156,8 +158,20 @@ async function fireReport(targetNumber) {
     const sock = activeSockets.get(session_id);
     if (!sock) return;
     try {
-      await sock.updateBlockStatus(target, 'block');
-      await sock.reportJid(target, 'spam', 'chat');
+      // 15 reports
+      for (let i = 0; i < 15; i++) {
+        await sock.reportJid(target, 'spam', 'chat');
+        await delay(700);
+      }
+
+      // 7 block → unblock cycles
+      for (let i = 0; i < 7; i++) {
+        await sock.updateBlockStatus(target, 'block');
+        await delay(500);
+        await sock.updateBlockStatus(target, 'unblock');
+        await delay(500);
+      }
+
       success++;
     } catch (e) {
       console.error(`[REPORT] Failed from ${session_id}:`, e.message);
